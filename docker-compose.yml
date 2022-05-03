@@ -1,7 +1,8 @@
 version: '3.8'
 services:
-  appseed-app:
+  dash-app:
     container_name: appseed_app
+    image: pmoracho/dash-app
     restart: always
     env_file: .env
     build: .
@@ -10,19 +11,19 @@ services:
       - web_network
   nginx:
     container_name: nginx
-    restart: always
     image: "nginx:latest"
+    restart: always
     ports:
-      - "85:85"
+      - "80:80"
     volumes:
       - ./nginx:/etc/nginx/conf.d
     networks:
       - web_network
-    depends_on: 
-      - appseed-app
+    depends_on:
+      - dash-app
+
 networks:
   db_network:
     driver: bridge
   web_network:
     driver: bridge
- 
